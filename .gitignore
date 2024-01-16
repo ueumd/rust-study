@@ -1,0 +1,17 @@
+.buildpath
+.hgignore.swp
+.project
+.orig
+.swp
+.idea/
+.settings/
+.vscode/
+composer.lock
+gitpush.sh
+pkg/
+bin/
+**/.DS_Store
+.test/
+*.exe
+/target
+log/
