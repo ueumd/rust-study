@@ -42,7 +42,6 @@ mod example_1 {
     #[test]
     fn test3() {
 
-        // `Structure` 是一个包含单个 `i32` 的结构体。
         #[derive(Debug)]
        struct Person<'a> {
             name: &'a str,

@@ -159,15 +159,15 @@ mod example_16 {
     fn test3() {
         #[derive(Debug)]
         struct Button {
-            width: u32,
-            height: u32,
-            label: String,
+            _width: u32,
+            _height: u32,
+            _label: String,
         }
         #[derive(Debug)]
         struct SelectBox {
-            width: u32,
-            height: u32,
-            options: Vec<String>,
+            _width: u32,
+            _height: u32,
+            _options: Vec<String>,
         }
 
         trait Draw {
@@ -222,14 +222,14 @@ mod example_16 {
         let screen = Screen {
             components: vec![
                 Box::new(Button{
-                    width: 50,
-                    height: 10,
-                    label: "OK".to_string(),
+                    _width: 50,
+                    _height: 10,
+                    _label: "OK".to_string(),
                 }),
                 Box::new(SelectBox {
-                    width: 75,
-                    height: 10,
-                    options: vec![
+                    _width: 75,
+                    _height: 10,
+                    _options: vec![
                         String::from("Yes"),
                         String::from("Maybe"),
                         String::from("No")
@@ -243,13 +243,170 @@ mod example_16 {
         let screen2 = Screen2 {
             components: vec![
                 Button{
-                    width: 50,
-                    height: 10,
-                    label: "OK".to_string(),
+                    _width: 50,
+                    _height: 10,
+                    _label: "OK".to_string(),
                 }
             ],
         };
         screen2.run();
 
+    }
+
+
+    /*
+    Drop trait 只有一个方法：drop，当对象离开作用域时会自动调用该方法。
+    Drop trait 的主要作用是释放实现者的实例拥有的资源。
+    */
+    #[test]
+    fn drop_test() {
+        struct Droppable {
+            name: &'static str,
+        }
+
+        impl Drop for Droppable {
+            fn drop(&mut self) {
+               println!("> Dropping {}", self.name)
+            }
+        }
+
+
+
+        let _a = Droppable { name: "a" };
+
+        {
+            let _b = Droppable { name: "b" };
+            println!("Exiting block A");
+        }
+
+        drop(_a);
+        println!("end of the main function");
+    }
+
+    /*
+    clone
+    */
+    #[test]
+    fn clone_test() {
+        #[derive(Debug, Clone, Copy)]
+        struct Nil;
+
+        #[derive(Clone, Debug)]
+        struct Pair(Box<i32>, Box<i32>);
+
+        let nil = Nil;
+
+        // 复制 `Nil`，没有资源用于移动（move）
+        let copied_nil = nil;
+
+        // 两个 `Nil` 都可以独立使用
+        println!("original: {:?}", nil);
+        println!("copy: {:?}", copied_nil);
+
+        // 实例化 `Pair`
+        let pair = Pair(Box::new(1), Box::new(2));
+        println!("original: {:?}", pair);
+
+        // 将 `pair` 绑定到 `moved_pair`，移动（move）了资源
+        let moved_pair = pair;
+        println!("copy: {:?}", moved_pair);
+
+        // 报错！`pair` 已失去了它的资源。 所有权丢失
+        // println!("original: {:?}", pair);
+
+
+        // 将 `moved_pair`（包括其资源）克隆到 `cloned_pair`。
+        let cloned_pair = moved_pair.clone();
+
+        println!("copy: {:?}", moved_pair); //copy: Pair(1, 2)
+        println!("clone: {:?}", cloned_pair); //clone: Pair(1, 2)
+
+        // 使用 std::mem::drop 来销毁原始的 pair。
+        drop(moved_pair);
+
+        // 报错！`moved_pair` 已被销毁。
+        // println!("copy: {:?}", moved_pair);
+
+
+        println!("clone: {:?}", cloned_pair); //clone: Pair(1, 2)
+    }
+
+    /*
+    https://lilinzta.github.io/2023/09/15/10-5-%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%B7%B1%E5%85%A5%E7%89%B9%E5%BE%81/
+    */
+    #[test]
+    fn test_superset_trait() {
+        trait Person {
+            fn name(&self) -> String;
+        }
+
+        trait Student:Person {
+            fn university(&self) -> String;
+        }
+
+        trait Programmer {
+            fn fav_language(&self) -> String;
+        }
+
+
+        // CompSciStudent (computer science student，计算机科学的学生) 是 Programmer 和 Student 两者的子类。
+        // 实现 CompSciStudent 需要你同时 impl 了两个父 trait。
+
+        trait CompSciStudent: Programmer + Student {
+            fn git_username(&self) -> String;
+        }
+
+        fn comp_sci_student_greeting(student: &dyn CompSciStudent) -> String {
+            format!(
+                "My name is {} and I attend {}. My favorite language is {}. My Git username is {}",
+                student.name(),
+                student.university(),
+                student.fav_language(),
+                student.git_username()
+            )
+        }
+
+        struct CSStudent {
+            name: String,
+            university: String,
+            fav_language: String,
+            git_username: String
+        }
+
+        // 为 CSStudent 实现所需的特征
+        impl Person for CSStudent {
+            fn name(&self) -> String {
+                self.name.clone()
+            }
+        }
+
+        impl Student for CSStudent {
+            fn university(&self) -> String {
+                self.university.clone()
+            }
+        }
+
+        impl Programmer for CSStudent {
+            fn fav_language(&self) -> String {
+                self.fav_language.clone()
+            }
+        }
+
+        impl CompSciStudent for CSStudent {
+            fn git_username(&self) -> String {
+                self.git_username.clone()
+            }
+        }
+
+
+        let student = CSStudent {
+            name: "Sunfei".to_string(),
+            university: "XXX".to_string(),
+            fav_language: "Rust".to_string(),
+            git_username: "sunface".to_string()
+        };
+
+        // 填空
+        println!("{}", comp_sci_student_greeting(&student));
     }
 }
