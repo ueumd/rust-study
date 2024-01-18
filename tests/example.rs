@@ -3,7 +3,6 @@ mod example {
 
     #[test]
     fn test() {
-
     }
 
     #[test]

@@ -24,6 +24,7 @@ mod data_type {
     fn test2() {
 
         #[derive(Debug)]
+        #[allow(dead_code)]
         struct Node<T> {
             elem: T
         }

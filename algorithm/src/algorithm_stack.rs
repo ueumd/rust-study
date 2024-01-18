@@ -95,7 +95,7 @@ mod algorithm_stack {
             if '(' == c {
                 stack.push(c);
             } else {
-                // 闭符号
+                // 闭符号 )
                 if stack.is_empty() {
                     // 为 空 则 不 平 衡
                     balance = false

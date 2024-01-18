@@ -97,4 +97,42 @@ mod example_9 {
         let one = || 1;
         println!("closure returning one: {}", one());
     }
+
+    /*
+    二、捕获变量
+        闭包可以捕获其环境中的变量，并在闭包的主体中使用。有三种方式可以捕获变量：
+        Fn 闭包：通过引用捕获变量，不可变借用。
+        FnMut 闭包：通过可变引用捕获变量，可变借用。
+        FnOnce 闭包：通过值捕获变量，所有权转移。
+    */
+
+    #[test]
+    fn test_closure() {
+
+        let x = 5;
+        let y = 10;
+
+        // Fn 闭包：通过引用捕获变量
+        let add = |a| a +x;
+
+
+        // FnMut 闭包：通过可变引用捕获变量
+        let mut multiply = |a| {
+            x*y*a
+        };
+
+        // FnOnce 闭包：通过值捕获变量
+        let divide = move |a| {
+            a / y
+        };
+
+        let result1 = add(3);
+        let result2 = multiply(2);
+        let result3 = divide(10);
+
+        println!("The results are: {}, {}, {}", result1, result2, result3);
+
+        let result3 = divide(10);
+        println!("result3 {}", result3);
+    }
 }
