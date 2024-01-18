@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod queue {
+mod algorithm_queue {
     /*
     队列: 先进先出
     入队  -->  4 2 1 2 7 8 3 5 0 1  --> 出队

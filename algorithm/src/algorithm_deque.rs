@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod deque {
+mod algorithm_deque {
     /*
     双端队列: 栈 和 队列
     LIFO 和 FIFO 排序
@@ -11,16 +11,17 @@ mod deque {
     */
     #[derive(Debug)]
     struct Deque<T> {
-        cap: usize,// 容量
-        data: Vec<T> // 数据容器
+        cap: usize,
+        // 容量
+        data: Vec<T>, // 数据容器
     }
 
     #[allow(dead_code)]
-    impl <T> Deque<T> {
+    impl<T> Deque<T> {
         fn new(size: usize) -> Self {
             Deque {
                 cap: size,
-                data: Vec::with_capacity(size)
+                data: Vec::with_capacity(size),
             }
         }
 
@@ -34,7 +35,7 @@ mod deque {
         }
 
         // Vec 首部 为 队尾
-        fn add_rear(&mut self, val: T)  -> Result<(), String> {
+        fn add_rear(&mut self, val: T) -> Result<(), String> {
             if Self::size(&self) == self.cap {
                 return Err("No space available".to_string());
             }
@@ -54,7 +55,7 @@ mod deque {
         fn remove_rear(&mut self) -> Option<T> {
             if Self::size(&self) > 0 {
                 // 头部是队尾
-               Some(self.data.remove(0))
+                Some(self.data.remove(0))
             } else { None }
         }
 
@@ -66,6 +67,41 @@ mod deque {
         fn is_empty(&self) -> bool {
             0 == Self::size(&self)
         }
+    }
+
+    /*
+    回文检测
+    回文字符串：即字符串从前往后读和从后往前读字符顺序是一致的。
+    如：字符串abccba，从前往后读是a-b-c-c-b-a；从后往前读也是a-b-c-c-b-a
+    */
+
+    fn pal_checker(str: &str) -> bool {
+        let mut dq = Deque::new(str.len());
+
+        let mut is_pal = true;
+
+        for c in str.chars() {
+            // println!("c: {c}");
+            let _ = dq.add_front(c);
+        }
+
+        println!("dq {:?}", dq); // dq Deque { cap: 7, data: ['r', 'u', 's', 't', 's', 'u', 'r'] }
+
+        while dq.size() > 1 && is_pal {
+            let head = dq.remove_rear().unwrap();
+            let rear = dq.remove_front().unwrap();
+
+            println!("head: {head}, rear: {rear}");
+
+            // ['r', 'u', 's', 't', 's', 'u', 'r']
+            // 判断 首尾是否相同
+            if head != rear {
+                is_pal = false;
+                break
+            }
+        }
+
+        is_pal
     }
 
 
@@ -92,5 +128,10 @@ mod deque {
         println!("queue content : {:?}", queue); // queue content : Deque { cap: 3, data: [2, 3]
     }
 
-
+    #[test]
+    fn test2() {
+        let pal = "rustsur";
+        let is_pal = pal_checker(pal);
+        println!("{pal} is palindrome string: {is_pal}");
+    }
 }

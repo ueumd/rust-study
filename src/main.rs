@@ -12,6 +12,27 @@ mod base;
 
 // mod struct_test;
 
+fn fibnacci_dp2(n: u32) -> u32 {
+    let mut dp = vec![];
+    // dp[0] = 0;
+    // dp[1] = 1;
+    // dp[2] = 1;
+    dp.push(0);
+    dp.push(1);
+    dp.push(1);
+
+
+    for i in 3..=n {
+        let idx1 = i as usize;
+        let idx2 = (i-1) as usize;
+        let idx3 = (i - 2) as usize;
+        println!("{i} - {idx1} - {idx2} - {idx3}");
+        dp.insert(idx1,  dp[idx2] + dp[idx3])
+    }
+
+    dp[n as usize]
+}
+
 fn main() {
     // study::study::hello();
     // println!("add_tow: {}", study::study::add(100));
@@ -31,5 +52,9 @@ fn main() {
     // study::channel::init();
 
     // base::base::init()
-    base::trait_study::init()
+    // base::trait_study::init()
+
+    let s =  fibnacci_dp2(10);
+
+    println!("fib 10: {}",s);
 }

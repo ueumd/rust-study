@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod algorithm {
-
     fn sum_of_n(n: i64) -> i64 {
         let mut sum = 0;
         for i in 1..=n {

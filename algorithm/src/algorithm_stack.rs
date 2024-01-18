@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod algorithm {
+mod algorithm_stack {
 
     /*
     栈: 先进后出

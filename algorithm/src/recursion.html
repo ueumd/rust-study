@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+<script type="module">
+    let nums = [2,1,7,4,5];
+    const sum = (list) => {
+        // 递归结束条件
+        if(list.length === 1) {
+            return list[0]
+        } else {
+            const first = list[0]
+            return first + sum(list.slice(1))
+        }
+    }
+
+    console.log(sum(nums))
+
+
+    // 自底向上
+    // 解题方式： 先从最简单的开始那就是 0 和 1
+    function fib2(n) {
+
+        // 假设求10
+        // n = 10 result = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]  result.length = 11
+        // result[10]
+
+        const result = []
+
+        // 两个最简单的先放入数组
+        result[0] = 0
+        result[1] = 1
+        result[2] = 1
+
+        // 从开始
+        for (let i = 3; i < n + 1; ++i) {
+            let idx1 = i
+            let idx2 = i - 1
+            let idx3 = i-2
+
+            console.log(i, idx1, idx2, idx3)
+            result[idx1] = result[idx2] + result[idx3]  //取出数组里的值进行相加
+        }
+
+        console.log(result) // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+
+
+        return result[n]
+    }
+
+    console.log(fib2(10)) // 55
+</script>
