@@ -2,6 +2,12 @@ mod vec_study {
 
     /*
     https://rustwiki.org/zh-CN/std/vec/struct.Vec.html
+    https://rust-book.junmajinlong.com/ch7/01_vec_basic.html
+
+    Vec::new()创建空的vec
+    Vec::with_capacity()创建空的vec，并将其容量设置为指定的数量
+    vec![]宏创建并初始化vec(中括号可以换为小括号或大括号)
+    vec![v;n]创建并初始化vec，共n个元素，每个元素都初始化为v
     */
     #[test]
     fn test() {

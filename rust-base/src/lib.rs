@@ -8,3 +8,8 @@ mod ownership_borrowing;
 mod lifetimes;
 mod error_handling;
 mod thread_study;
+mod thread_condvar;
+mod thread_barrier;
+mod thread_atomic;
+mod thread_channel;
+mod thread_async;

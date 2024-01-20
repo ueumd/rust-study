@@ -192,18 +192,31 @@ mod thread_study {
 
         thread::spawn(move || {
             let (lock, cvar) = &*pair2;
+
+            println!("子线程获取锁");
+            // 子线程获取到锁，并将其修改为 true
             let mut started = lock.lock().unwrap();
             *started = true;
 
+            println!("子线程修改 started: {}", started);
+
             // We notify the condvar that the value has changed.
+            // 调用条件变量的 notify_one 方法来通知主线程继续执行
             cvar.notify_one();
+            println!("通知主线程继续执行 started: {}", started);
         });
 
 
         let (lock, cvar) = &*pair;
         let mut started = lock.lock().unwrap();
+
+        // 主线程首先进入while循环
         while !*started {
+            // 调用 wait 方法挂起等待子线程的通知，并释放了锁 started
+            println!("主线程：{}", started);
+            println!("主线程等待");
             started = cvar.wait(started).unwrap();
+            println!("主线程等待：{}", started);
         }
     }
 }
