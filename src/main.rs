@@ -34,20 +34,16 @@ fn _main1() {
     // base::base::init()
     // base::trait_study::init()
 }
-use std::thread;
-use std::time::Duration;
+
+use feature_demo::bmp::process_bmp;
+use feature_demo::ico::process_ico;
+use feature_demo::png::process_png;
+use feature_demo::webp::process_webp;
+
 
 fn main() {
-    let handle = thread::spawn(|| {
-        println!("Hello from the new thread!");
-    });
-
-    //主线程执行
-    for i in 1..5 {
-        println!("主线程输出：{}", i);
-        thread::sleep(Duration::from_millis(1));
-    }
-
-
-    handle.join().unwrap();
+    process_bmp();
+    process_png();
+    process_ico();
+    process_webp();
 }
