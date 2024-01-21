@@ -1,4 +1,4 @@
-workspace = { members = [ "algorithm","rust-base"] }
+workspace = { members = [ "algorithm", "macro_define_crate","rust-base"] }
 [package]
 name = "rust-study"
 version = "0.1.0"
@@ -9,3 +9,4 @@ edition = "2021"
 [dependencies]
 futures = "0.3"
 tokio = { version = "1.35.1", features = [] }
+macro_define_crate = {path = "./macro_define_crate"}

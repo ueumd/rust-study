@@ -17,6 +17,8 @@ mod str_study {
         //  let str1 = "banana";
         //  字符串字面量 自动推导如下
         let str1: &str = "banana";
+
+
         /*
         错误用法
         let mut str1 = "sss"
@@ -34,6 +36,7 @@ mod str_study {
         println!("{}", s); // hello, world!
 
 
+
         /*
         &String：这是一个指向 String 的引用，常用于函数参数，以便可以接受 String 类型也可以接受 &str 类型。
         */
@@ -48,6 +51,7 @@ mod str_study {
 
         let s3: Box<str> = Box::from("Hello, world!");
         println!("{}", s3); // This will print: Hello, world!
+
 
         /*
         Box<&str>：这是一个罕见的类型，通常不会在 Rust 代码中出现。它是一个指向 str 的堆分配引用。因此，以下例子是比较不常见的。
@@ -65,5 +69,19 @@ mod str_study {
 
         println!("{}", sliced); // Rust!
 
+    }
+
+    struct Age(u8);
+
+    impl Age {
+        fn add(&mut self, age: &Age) {
+            self.0 += age.0
+        }
+    }
+    #[test]
+    fn test3() {
+       let mut age = Age(0);
+        age.add(&Age(18));
+        println!("age.0: {}", age.0) // age.0: 18
     }
 }

@@ -13,3 +13,4 @@ mod thread_barrier;
 mod thread_atomic;
 mod thread_channel;
 mod thread_async;
+mod macro_study;

@@ -36,3 +36,10 @@ https://cloud.tencent.com/developer/column/99412?tag=10968
 
 #### 通过实战理解 Rust 宏 | 90 分钟让你深入理解 Rust 宏
 https://www.bilibili.com/video/BV1Yb4y1U7r1/
+
+#### Rust 培养提高计划 (理论)
+https://github.com/wubx/rust-in-databend
+
+#### Rust 宏小册
+https://zjp-cn.github.io/tlborm/introduction.html
+https://zhuanlan.zhihu.com/p/353421021
