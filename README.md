@@ -33,6 +33,8 @@ https://cloud.tencent.com/developer/column/99412?tag=10968
 
 #### 学习笔记
 - https://skyao.io/learning-rust/docs/grammar/
+- https://rustcc.cn/blog_with_author?author_id=2b8315b5-63a1-43fc-b3e0-48aad1b6c091 (good)
+- https://github.com/JasonkayZK/rust-learn/tree/reflection
 
 #### 通过实战理解 Rust 宏 | 90 分钟让你深入理解 Rust 宏
 https://www.bilibili.com/video/BV1Yb4y1U7r1/
