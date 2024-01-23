@@ -12,7 +12,7 @@ full = [
     "png",
     "ico",
     "webp"
-]
+    ]
 bmp = []
 png = []
 ico = ["bmp", "png"]
